@@ -5,6 +5,10 @@
 
 package br.edu.ifpr;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+
 /**
  *
  * @author Aluno
@@ -12,6 +16,20 @@ package br.edu.ifpr;
 public class ExemploORM {
 
     public static void main(String[] args) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ifpr_db");
+
+        EntityManager em = emf.createEntityManager();
+
+        Categoria c = new Categoria();
+        c.setNome("Carros");
+
+        em.getTransaction().begin();
+        em.persist(c);
+        em.getTransaction().commit();
+
+        em.close();
+        emf.close();
+
         System.out.println("Hello World!");
     }
 }
